@@ -1,0 +1,98 @@
+li {
+    list-style: none;
+}
+
+ul {
+    padding: 0;
+}
+
+.ticket-list {
+    grid-area: tickets;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    gap: 20px;
+    max-width: 510px;
+}
+
+.adding-btn {
+    width: 513px;
+}
+
+.ticket {
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.10);
+    display: grid;
+    grid-template-columns: 147px 1fr 110px 50px;
+    grid-template-rows: 50px auto;
+    grid-template-areas:
+        "price . logo logo"
+        "table table table .";
+}
+
+.s7-Logo {
+    grid-area: logo;
+    align-self: center;
+    justify-self: end;
+}
+
+.table {
+    grid-area: table;
+    width: 100%;
+    padding: 0;
+}
+
+.table--content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-weight: 600;
+}
+
+.table--title {
+    font-size: 12px;
+    color: #A0B0B9;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table--info {
+    color: #4A4A4A;
+    font-size: 14px;
+}
+
+.table--title,
+.table--info {
+    margin: 12px 0;
+}
+
+.price {
+    grid-area: price;
+    color: #2196F3;
+    align-self: center;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+@media (max-width: 920px) {
+    .ticket-list {
+        max-width: 100%;
+    }
+    .adding-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 650px) {
+    .ticket {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 50px 1fr;
+        grid-template-areas:
+            "price logo"
+            "table table";
+    }
+}

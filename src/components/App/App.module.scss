@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+@import-normalize;
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    margin: 0 auto;
+    padding: 50px 0 0 0;
+    font-family: Open Sans;
+    width: calc(100% - 100px);
+    min-width: 420px;
+    max-width: 810px;
+}
+
+.logo {
+    text-align: center;
+}
+
+.content {
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: 300px auto;
+    grid-template-rows: 50px 252px auto;
+    grid-template-areas:
+        "filter tabs"
+        "filter tickets"
+        ". tickets";
+}
+
+.tabs {
+    grid-area: tabs;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.custom-radio-button {
+    height: 50px !important;
+    width: calc((100% / 2)) !important;
+    font-size: 13px !important; 
+    min-width: 160px !important;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 920px) {
+    .wrapper {
+        display: block;
+    }
+    .content {
+        grid-template-columns: 250px 1fr;
+        gap: 0 10px;
+    }
+}
+
+@media (max-width: 890px) {
+    .content {
+        grid-template-columns: 1fr;
+        grid-template-rows: 180px 50px 1fr;
+        grid-template-areas:
+            "filter"
+            "tabs"
+            "tickets";
+    }
+}
+
+@media (max-width: 600px) {
+    .wrapper {
+        width: calc(100% - 50px);
+    }
+}
