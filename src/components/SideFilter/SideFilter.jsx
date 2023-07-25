@@ -3,15 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import uniqid from 'uniqid';
 
 import Filter from '../Filter';
-import { filterAllToggle, filterToggle } from '../../store/actions';
+import { filterToggle, filterAllToggle } from '../../store/actions/actions';
 
 import styles from './SideFilter.module.scss';
 
 const SideFilter = () => {
   const dispatch = useDispatch();
-  const filters = useSelector((state) => {
-    return state.filters;
-  });
+  const filters = useSelector((state) => state.filterReducer.filters);
 
   const handleChange = (e) => {
     if (e.target.id === 1) {

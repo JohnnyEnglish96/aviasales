@@ -1,4 +1,5 @@
-import { FILTER_ALL, FILTER } from '../types';
+/* eslint-disable arrow-body-style */
+import { FILTER_ALL, FILTER } from '../actions/actionTypes';
 
 const defaultStore = {
   filters: [
@@ -37,9 +38,8 @@ const updateTrigger = (arr, id) => {
 function filterReducer(state = defaultStore, action = {}) {
   const oldData = state.filters;
   const newData = updateTrigger(oldData, action.id);
-  const isAllChecked = newData.every((element) => element.trigger);
+  const isAllChecked = newData.slice(1).every((element) => element.trigger);
   const changedData = [{ ...state.filters[0], trigger: isAllChecked }, ...newData.slice(1)];
-
   switch (action.type) {
     case FILTER_ALL:
       return {
