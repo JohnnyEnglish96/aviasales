@@ -19,12 +19,31 @@ function transformTime(date, duration) {
   };
 }
 
-const Ticket = ({ tickets }) => {
+function transferAmount(stops) {
+  const numStops = stops.length;
+
+  if (numStops === 0) {
+    return 'пересадок';
+  }
+  if (numStops === 1) {
+    return '1 пересадка';
+  }
+  return `${numStops} пересадки`;
+}
+
+function addSpacesToNumber(num) {
+  const NumString = String(num);
+  const requiredNum = NumString.length === 5 ? 2 : 3;
+  const regex = new RegExp(`(\\d{${requiredNum}})(\\d{1,})`, 'gi');
+  return `${NumString.replace(regex, '$1 $2')} P`;
+}
+
+function Ticket({ tickets }) {
   const { price, segments } = tickets;
   const [toDestination, fromDestination] = segments;
   return (
     <div className={styles.ticket}>
-      <p className={styles.price}>{price} P</p>
+      <p className={styles.price}>{addSpacesToNumber(price)}</p>
 
       <img className={styles['s7-Logo']} src={s7Logo} alt="s7 Logo" />
       <div className={styles.table}>
@@ -33,9 +52,9 @@ const Ticket = ({ tickets }) => {
       </div>
     </div>
   );
-};
+}
 
-const TableInfo = ({ segment }) => {
+function TableInfo({ segment }) {
   const { origin, destination, date, duration, stops } = segment;
   const { departureTime, destinationTime } = transformTime(date, duration);
 
@@ -55,14 +74,12 @@ const TableInfo = ({ segment }) => {
           <li className={styles['table--info']}>{getTimeFromMins(duration)}</li>
         </ul>
         <ul className={styles.transfer}>
-          <li className={styles['table--title']}>
-            {stops.length ? `${stops.length} пересадки` : '0 пересадок'}
-          </li>
-          <li className={styles['table--info']}>{stops.join(', ')}</li>
+          <li className={styles['table--title']}>{transferAmount(stops)}</li>
+          <li className={styles['table--info']}>{stops.length ? stops.join(', ') : 'НЕТ'}</li>
         </ul>
       </li>
     </ul>
   );
-};
+}
 
 export default Ticket;

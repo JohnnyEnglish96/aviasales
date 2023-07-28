@@ -7,12 +7,12 @@ import { filterToggle, filterAllToggle } from '../../store/actions/actions';
 
 import styles from './SideFilter.module.scss';
 
-const SideFilter = () => {
+function SideFilter() {
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.filterReducer.filters);
 
   const handleChange = (e) => {
-    if (e.target.id === 1) {
+    if (e.target.id === 4) {
       return dispatch(filterAllToggle());
     }
     return dispatch(filterToggle(e.target.id));
@@ -24,7 +24,7 @@ const SideFilter = () => {
 
       <ul className={styles['side-filter--radio-wrapper']}>
         {filters.map(({ id, name, trigger }) => {
-          if (id === 1) {
+          if (id === 4) {
             return (
               <li key={uniqid()}>
                 <Filter id={id} name={name} trigger={trigger} handleChange={handleChange} />
@@ -40,6 +40,6 @@ const SideFilter = () => {
       </ul>
     </div>
   );
-};
+}
 
 export default SideFilter;

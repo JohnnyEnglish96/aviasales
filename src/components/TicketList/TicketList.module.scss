@@ -48,8 +48,22 @@ ul {
 .table--content {
     display: flex;
     width: 100%;
-    justify-content: space-between;
     font-weight: 600;
+    justify-content: space-between;
+}
+
+.onway {
+    text-align: center;
+}
+
+.transfer {
+    text-align: start;
+    width: 100px;
+}
+
+.table--info {
+    color: #4A4A4A;
+    font-size: 14px;
 }
 
 .table--title {
@@ -57,11 +71,6 @@ ul {
     color: #A0B0B9;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-}
-
-.table--info {
-    color: #4A4A4A;
-    font-size: 14px;
 }
 
 .table--title,
@@ -78,7 +87,18 @@ ul {
     font-weight: 600;
 }
 
+.alert-message {
+    font-size: 14px;
+}
+
 @media (max-width: 920px) {
+    .table--content {
+        justify-content: space-between;
+    }
+    .transfer {
+        text-align: start;
+        width: 120px;
+    }
     .ticket-list {
         max-width: 100%;
     }
@@ -88,6 +108,7 @@ ul {
 }
 
 @media (max-width: 650px) {
+
     .ticket {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 50px 1fr;

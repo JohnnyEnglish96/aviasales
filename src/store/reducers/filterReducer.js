@@ -4,29 +4,29 @@ import { FILTER_ALL, FILTER } from '../actions/actionTypes';
 const defaultStore = {
   filters: [
     {
-      id: 1,
+      id: 4,
       name: 'Все',
-      trigger: false,
+      trigger: true,
+    },
+    {
+      id: 0,
+      name: 'Без пересадок',
+      trigger: true,
+    },
+    {
+      id: 1,
+      name: '1 пересадка',
+      trigger: true,
     },
     {
       id: 2,
-      name: 'Без пересадок',
-      trigger: false,
+      name: '2 пересадки',
+      trigger: true,
     },
     {
       id: 3,
-      name: '1 пересадка',
-      trigger: false,
-    },
-    {
-      id: 4,
-      name: '2 пересадки',
-      trigger: false,
-    },
-    {
-      id: 5,
       name: '3 пересадки',
-      trigger: false,
+      trigger: true,
     },
   ],
 };
@@ -40,6 +40,7 @@ function filterReducer(state = defaultStore, action = {}) {
   const newData = updateTrigger(oldData, action.id);
   const isAllChecked = newData.slice(1).every((element) => element.trigger);
   const changedData = [{ ...state.filters[0], trigger: isAllChecked }, ...newData.slice(1)];
+
   switch (action.type) {
     case FILTER_ALL:
       return {

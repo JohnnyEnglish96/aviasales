@@ -1,48 +1,83 @@
-/* eslint-disable indent */
-import React, { useEffect, useState } from 'react';
-import { Button } from 'antd';
+import React, { useEffect, useCallback } from 'react';
+import { Button, Alert } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import uniqid from 'uniqid';
 
-import { getTickets } from '../../store/actions/actions';
+import { getTickets, showTickets } from '../../store/actions/actions';
+import { selectTicketsByFilter, selectSearchId } from '../../store/selectors/selectors';
 import Ticket from '../Ticket';
 
 import styles from './TicketList.module.scss';
 
-const TicketList = () => {
-  const [ticketList, setTicketList] = useState([]);
+function TicketList() {
   const dispatch = useDispatch();
-  const searchId = useSelector((state) => state.ticketsReducer.searchId);
-  const tickets = useSelector((state) => state.ticketsReducer.tickets);
+
+  const filteredTickets = useSelector(selectTicketsByFilter);
+  const searchId = useSelector(selectSearchId);
+
+  const showMoreTickets = () => {
+    dispatch(showTickets());
+  };
 
   useEffect(() => {
+    const retryGetTickets = async () => {
+      try {
+        const stop = await dispatch(getTickets(searchId));
+        if (!stop) {
+          retryGetTickets();
+        }
+      } catch (error) {
+        retryGetTickets();
+      }
+    };
+
     if (searchId) {
-      dispatch(getTickets(searchId));
+      retryGetTickets();
     }
   }, [dispatch, searchId]);
 
-  useEffect(() => {
-    if (tickets.length) {
-      setTicketList(tickets);
-    }
-  }, [tickets]);
-
   return (
     <ul className={styles['ticket-list']}>
-      {ticketList.length
-        ? ticketList.map((ticket) => (
-            // eslint-disable-next-line react/jsx-indent
-            <li key={uniqid()}>
-              <Ticket tickets={ticket} />
-            </li>
-          ))
-        : null}
+      {filteredTickets.length ? (
+        filteredTickets.map((ticket) => (
+          <li key={uniqid()}>
+            <Ticket tickets={ticket} />
+          </li>
+        ))
+      ) : (
+        <Alert
+          className={styles['alert-message']}
+          message="No tickets found, please try to use one of the filters"
+          type="warning"
+          showIcon
+        />
+      )}
 
-      <Button className={styles['adding-btn']} type="primary" size="large">
-        Показать еще 5 билетов!
-      </Button>
+      <MemoizedAddButton showMoreTickets={showMoreTickets} filteredTickets={filteredTickets} />
     </ul>
   );
-};
+}
+
+function AddButton({ showMoreTickets, filteredTickets }) {
+  const buttonStyle = { width: '100%' };
+  const handleButtonClick = useCallback(() => {
+    showMoreTickets();
+  }, [showMoreTickets]);
+  return (
+    <div className={styles['adding-btn']}>
+      <Button
+        onClick={handleButtonClick}
+        disabled={!filteredTickets.length}
+        type="primary"
+        size="large"
+        style={buttonStyle}
+      >
+        Показать еще 5 билетов!
+      </Button>
+    </div>
+  );
+}
+
+const MemoizedAddButton = React.memo(AddButton);
 
 export default TicketList;

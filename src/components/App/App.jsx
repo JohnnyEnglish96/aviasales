@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Radio } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { Progress } from 'antd';
 
 import SideFilter from '../SideFilter';
-import TicketList from '../TicketList/TicketList';
+import TicketList from '../TicketList';
+import Tabs from '../Tabs';
 import logo from '../../assets/img/Logo.svg';
 import { getSearchId } from '../../store/actions/actions';
 
 import styles from './App.module.scss';
 
-const App = () => {
+function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getSearchId());
@@ -20,30 +21,39 @@ const App = () => {
       <Logo />
       <div className={styles.content}>
         <SideFilter />
+        <ProgressBar />
         <Tabs />
         <TicketList />
       </div>
     </div>
   );
-};
+}
 
-const Tabs = () => (
-  <div className={styles.tabs}>
-    <Radio.Group defaultValue="a" buttonStyle="solid" style={{ width: '100%' }}>
-      <Radio.Button className={styles['custom-radio-button']} value="a">
-        Самый дешевый
-      </Radio.Button>
-      <Radio.Button className={styles['custom-radio-button']} value="b">
-        Самый быстрый
-      </Radio.Button>
-    </Radio.Group>
-  </div>
-);
+function ProgressBar() {
+  const tickets = useSelector((state) => state.ticketsReducer.tickets);
+  const percent = Math.round((tickets.length / 8806) * 100);
+  let hidden = false;
 
-const Logo = () => (
-  <div className={styles.logo}>
-    <img src={logo} alt="Logo" />
-  </div>
-);
+  if (percent === 100) {
+    hidden = true;
+  }
+
+  return (
+    <Progress
+      className={`${styles.progress} ${hidden && styles.hidden}`}
+      percent={percent}
+      showInfo={false}
+      status="active"
+    />
+  );
+}
+
+function Logo() {
+  return (
+    <div className={styles.logo}>
+      <img src={logo} alt="Logo" />
+    </div>
+  );
+}
 
 export default App;
