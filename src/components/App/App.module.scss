@@ -22,13 +22,14 @@ body {
 .content {
     margin: 50px auto;
     display: grid;
+    align-items: start;
     grid-template-columns: 300px auto;
-    grid-template-rows: 45px 5px 252px auto;
+    grid-template-rows: 45px 5px auto auto;
     grid-template-areas:
         "filter tabs"
         "filter progress"
-        "filter tickets"
-        ". tickets";
+        ". tickets"
+        ". button";
 }
 
 .tabs {
@@ -69,12 +70,13 @@ body {
 @media (max-width: 890px) {
     .content {
         grid-template-columns: 1fr;
-        grid-template-rows: 180px 45px 5px 1fr;
+        grid-template-rows: 180px 45px 5px 1fr auto;
         grid-template-areas:
             "filter"
             "tabs"
             "progress"
-            "tickets";
+            "tickets"
+            "button";
     }
 }
 

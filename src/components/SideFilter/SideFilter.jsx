@@ -1,15 +1,16 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import uniqid from 'uniqid';
+import { Checkbox } from 'antd';
 
-import Filter from '../Filter';
 import { filterToggle, filterAllToggle } from '../../store/actions/actions';
+import { selectFilters } from '../../store/selectors/selectors';
 
 import styles from './SideFilter.module.scss';
 
 function SideFilter() {
   const dispatch = useDispatch();
-  const filters = useSelector((state) => state.filterReducer.filters);
+  const filters = useSelector(selectFilters);
 
   const handleChange = (e) => {
     if (e.target.id === 4) {
@@ -39,6 +40,14 @@ function SideFilter() {
         })}
       </ul>
     </div>
+  );
+}
+
+function Filter({ handleChange, trigger, id, name }) {
+  return (
+    <Checkbox onChange={handleChange} checked={trigger} id={id}>
+      {name}
+    </Checkbox>
   );
 }
 

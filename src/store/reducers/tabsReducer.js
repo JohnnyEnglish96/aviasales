@@ -9,8 +9,9 @@ const defaultStore = {
 };
 
 const updateTrigger = (arr, value) => {
-  // eslint-disable-next-line max-len
-  return arr.map((item) => (item.value === value ? { ...item, trigger: !item.trigger } : { ...item, trigger: !item.trigger }));
+  return arr.map((item) => (item.value === value
+    ? { ...item, trigger: !item.trigger }
+    : { ...item, trigger: !item.trigger }));
 };
 
 function tabsReducer(state = defaultStore, action = {}) {

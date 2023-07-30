@@ -1,1 +1,1 @@
-# [Тестовая версия приложения](https://aviasales-johnnyenglish96.vercel.app)
+# [Ссылка на приложение](https://aviasales-johnnyenglish96.vercel.app)

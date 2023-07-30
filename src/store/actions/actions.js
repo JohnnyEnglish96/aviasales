@@ -1,14 +1,5 @@
 /* eslint-disable no-debugger */
-import {
-  FILTER_ALL,
-  FILTER,
-  GET_SEARCH_ID,
-  GET_TICKETS,
-  UPDATE_TICKETS_WITH_FILTER,
-  UPDATE_TICKETS_WITH_TABS,
-  SHOW_TICKETS,
-  TABS,
-} from './actionTypes';
+import { FILTER_ALL, FILTER, GET_SEARCH_ID, GET_TICKETS, SHOW_TICKETS, TABS } from './actionTypes';
 
 const baseUrl = 'https://aviasales-test-api.kata.academy/';
 
@@ -49,27 +40,8 @@ const getTickets = (searchId) => async (dispatch) => {
   return stop;
 };
 
-const updateTicketsWithFilter = (filterId) => ({
-  type: UPDATE_TICKETS_WITH_FILTER,
-  filterId,
-});
-
-const updateTicketsWithTabs = (tabsValue) => ({
-  type: UPDATE_TICKETS_WITH_TABS,
-  tabsValue,
-});
-
 const showTickets = () => ({
   type: SHOW_TICKETS,
 });
 
-export {
-  filterAllToggle,
-  filterToggle,
-  getSearchId,
-  getTickets,
-  updateTicketsWithFilter,
-  updateTicketsWithTabs,
-  showTickets,
-  tabsToggle,
-};
+export { filterAllToggle, filterToggle, getSearchId, getTickets, showTickets, tabsToggle };
